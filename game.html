@@ -36,13 +36,20 @@ function preload() {
 		}
 
     game.load.spritesheet('orderTimer', 'assets/timer_10s.png', 252, 252, 360);
-    //game.load.spritesheet('gameTimer', 'assets/gameTimer.png', 252, 252, 360);
+    game.load.spritesheet('gameTimer', 'assets/Bigtimer_1mn.png', 501, 501, 8*15);
 
     game.load.spritesheet('anim1', 'assets/pod_spawn.png', 195, 180, 30);
     game.load.spritesheet('anim0', 'assets/cluster_spawn.png', 245, 345, 30);
 
     /*player.animations.add('left', [0, 1, 2, 3], 10, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);*/
+
+    game.load.audio('music', 'assets/Audio/Musique.ogg');
+    game.load.audio('ambiant', 'assets/Audio/Ambiance.ogg');
+    game.load.audio('arrival', 'assets/Audio/Arrival.ogg');
+    game.load.audio('departure_1', 'assets/Audio/Departure_1.ogg');
+    game.load.audio('departure_2', 'assets/Audio/Departure_2.ogg');
+    game.load.audio('money', 'assets/Audio/Money.ogg');
 }
 
 var buttons;
@@ -50,8 +57,8 @@ var itemDragged;
 
 var spriteButtons = new Array();
 var dragItems = new Array();
-var buttonPositions = [{x: 360, y: 1020}, {x: 800, y: 650}, {x: 250, y: 410}];
-var dragPositions = [{x: 360, y: 1020}, {x: 700, y: 550}, {x: 250, y: 410}];
+var buttonPositions = [{x: 420, y: 1020}, {x: 800, y: 650}, {x: 250, y: 410}];
+var dragPositions = [{x: 420, y: 1020}, {x: 700, y: 550}, {x: 250, y: 410}];
 
 var truck;
 var itemsInTruck = new Array();
@@ -59,9 +66,10 @@ var itemsInTruck = new Array();
 var order;
 var orderTexts = new Array(), timerText, countTexts = new Array();
 var orderNbr = [2, 1, 3], count = [0, 0, 0];
-var eachSecond;
+var eachSecondOrder, eachSecondGame;
 var orderTimer;
-var orderTimerSprite;
+var orderTimerSprite, orderTimerText;
+var gameTimerSprite;
 
 var score = 0;
 var scoreText;
@@ -74,7 +82,13 @@ var dragNDropNbr;
 var currentDifficulty = 0;
 var consecutiveWins = 0;
 
-var gameTimer = 3*60;
+var gameTimer = 2;
+
+var music;
+var ambiant;
+var arrival;
+var departure;
+var money;
 
 function create() {
     //  A simple background for our game
@@ -82,20 +96,22 @@ function create() {
 
 		truckSprites = game.add.group();
 
-		var gameTimerSprite = game.add.sprite(770, 70, 'orderTimer');
-		gameTimerSprite.animations.add('timer');
-		gameTimerSprite.animations.play('timer', 300/gameTimer);
+		gameTimerSprite = game.add.sprite(game.world.width - 490, -20, 'gameTimer');
+		gameTimerSprite.animations.add('timer');;
 
-		orderTimerSprite = truckSprites.create(770, 70, 'orderTimer');
-		orderTimerSprite.animations.add('timer');
-		orderTimerText = game.add.text(880, 70, '30s', { font: '20px Comic Sans MS', fill: '#000' });
-		truckSprites.add(orderTimerText);
-
-		eachSecond = game.time.create(false);
-		eachSecond.loop(1000, decreaseTimer, this);
+		eachSecondGame = game.time.create(false);
+		eachSecondGame.loop(Phaser.Timer.SECOND, decreaseGameTimer, this);
 
 		//var orders = new array();
 		truck = truckSprites.create(0, 0, 'truck');
+
+		orderTimerSprite = truckSprites.create(770, 70, 'orderTimer');
+		orderTimerSprite.animations.add('timer');
+		/*orderTimerText = game.add.text(880, 70, '30s', { font: '50px Comic Sans MS', fill: '#000' });
+		truckSprites.add(orderTimerText);*/
+
+		eachSecondOrder = game.time.create(false);
+		eachSecondOrder.loop(Phaser.Timer.SECOND, decreaseOrderTimer, this);
 
 		var max = 4;
 		for(var i=0; i<3; i++){
@@ -110,13 +126,13 @@ function create() {
 			itemsInTruck.push(array);
 		}
 
-		whiteFont = { font: '70px Comic Sans MS', fill: '#fff' };
-		greenFont = { font: '70px Comic Sans MS', fill: '#00ff00' };
-		redFont = { font: '70px Comic Sans MS', fill: '#ff0000' };
+		whiteFont = { font: '100px Comic Sans MS', fill: '#fff', boundsAlignH: "center" };
+		greenFont = { font: '100px Comic Sans MS', fill: '#00ff00', boundsAlignH: "center" };
+		redFont = { font: '100px Comic Sans MS', fill: '#ff0000', boundsAlignH: "center" };
 
 		var orderText;
 		for(var i=0; i<3; i++){
-    	orderText = game.add.text(170 + 140*i, -20, '000', whiteFont);
+    	orderText = game.add.text(170 + 140*i, -50, '000', whiteFont);
 			truckSprites.add(orderText);
 			orderTexts.push(orderText);
 		}
@@ -129,9 +145,7 @@ function create() {
 		}
 
 		truckSprites.x = game.world.width;
-		truckSprites.y = 475;
-
-		createNewOrder();
+		truckSprites.y = 500;
 
     buttons = game.add.group();
 		itemsDragged = game.add.group();
@@ -143,7 +157,7 @@ function create() {
 			else {
 				button = buttons.create(buttonPositions[i].x, buttonPositions[i].y, 'anim' + i);
 				button.animations.add('timer');
-				button.animations.play('timer', 5);
+				button.animations.play('timer', 10);
 			}
 			spriteButtons.push(button);
 			var dragItem = itemsDragged.create(dragPositions[i].x, dragPositions[i].y, 'button' + i);
@@ -157,6 +171,23 @@ function create() {
 
     scoreText = game.add.text(180, 65, 'Score : 0', { font: '100px Comic Sans MS', fill: '#fff', boundsAlignH: "center", boundsAlignV: "middle" });
 		//scoreText.setTextBounds(120, 0, 680, 270);
+
+    music = game.add.audio('music', true);
+    ambiant = game.add.audio('ambiant', true);
+    money = game.add.audio('money', 0.2);
+    arrival = game.add.audio('arrival', 0.2);
+    departure = [game.add.audio('departure_1', 0.2), game.add.audio('departure_2', 0.5)];
+
+		music.play();
+		ambiant.play();
+
+		setTimeout(startGameTimer, 1000);
+}
+
+function startGameTimer(){
+		eachSecondGame.start();
+		gameTimerSprite.animations.play('timer', 8*15/gameTimer)
+		createNewOrder()
 }
 
 function createNewOrder(){
@@ -171,17 +202,34 @@ function createNewOrder(){
 	orders.push(newOrder);*/
 	switch (currentDifficulty) {
 		case 0:
-			updateOrderNbr(0, getRandomInt(1, 3), getRandomInt(0, 7));
+			if(Math.random() < 0.5)
+				updateOrderNbr(0, getRandomInt(0, 3), getRandomInt(1, 7));
+			else
+				updateOrderNbr(0, getRandomInt(1, 7), getRandomInt(0, 3));
 			dragNDropNbr = orderNbr[0] + orderNbr[1] + orderNbr[2] + 3;
 			updateOrderTimer(dragNDropNbr * 2);
 			break;
 		case 1:
-			updateOrderNbr(1, getRandomInt(1, 7), getRandomInt(1, 7));
+			if(Math.random() < 0.5)
+				updateOrderNbr(1, getRandomInt(0, 6), getRandomInt(4, 8));
+			else
+				updateOrderNbr(1, getRandomInt(4, 8), getRandomInt(0, 6));
 			dragNDropNbr = orderNbr[0] + orderNbr[1] + orderNbr[2] + 3;
 			updateOrderTimer(dragNDropNbr*1.5);
 			break;
 		case 2:
-			updateOrderNbr(getRandomInt(1, 2), getRandomInt(1, 7), getRandomInt(1, 7));
+			if(Math.random() < 0.5)
+				updateOrderNbr(getRandomInt(1, 3), getRandomInt(0, 4), getRandomInt(2, 6));
+			else
+				updateOrderNbr(getRandomInt(1, 3), getRandomInt(2, 6), getRandomInt(0, 4));
+			dragNDropNbr = orderNbr[0] + orderNbr[1] + orderNbr[2] + 3;
+			updateOrderTimer(Math.ceil(dragNDropNbr));
+			break;
+		case 3:
+			if(Math.random() < 0.5)
+				updateOrderNbr(getRandomInt(2, 4), getRandomInt(1, 6), getRandomInt(4, 8));
+			else
+				updateOrderNbr(getRandomInt(2, 4), getRandomInt(4, 8), getRandomInt(1, 6));
 			dragNDropNbr = orderNbr[0] + orderNbr[1] + orderNbr[2] + 3;
 			updateOrderTimer(Math.ceil(dragNDropNbr));
 			break;
@@ -189,28 +237,35 @@ function createNewOrder(){
 
 	}
 	updateAllCount(0, 0, 0);
+
+	//truck.tint = Math.random() * 0xffffff;
 	game.add.tween(truckSprites.position).to( { x: game.world.width - 1150 }, Phaser.Timer.SECOND*2, Phaser.Easing.Linear.Out, true);
+
+	arrival.play();
+
 	setTimeout(startOrderTimer, Phaser.Timer.SECOND*2);
 }
 function startOrderTimer(){
-	eachSecond.start();
+	eachSecondOrder.start();
 	orderTimerSprite.animations.play('timer', 300/orderTimer);
 }
 
-function decreaseTimer() {
+function decreaseGameTimer(){
+	gameTimer--;
+	if(gameTimer == 0){
+			console.log("FINISH GAME");
+			document.location.href = "end.html";
+	}
+}
+function decreaseOrderTimer() {
 	updateOrderTimer(orderTimer-1);
 	if(orderTimer == 0){
 		setTimeout(orderLost, Phaser.Timer.SECOND*2);
 	}
-
-	gameTimer--;
-	if(gameTimer == 0){
-		console.log("FINISH GAME");
-	}
 }
 function updateOrderTimer(newValue){
 	orderTimer = newValue;
-	orderTimerText.text = orderTimer + "s";
+	//orderTimerText.text = orderTimer + "s";
 }
 
 function update() {
@@ -228,6 +283,8 @@ function addCount(index){
 	if(count[index] < 9) {
 		itemsInTruck[index][count[index]].visible = true;
 		count[index]++;
+		game.add.tween(countTexts[index].scale).to( { x: 1.2, y: 1.2 }, 200, Phaser.Easing.Cubic.Out, true, 0, true, true);
+
 		if(index == 0 && count[0] > orderNbr[0])
 			orderLost();
 	}
@@ -272,14 +329,14 @@ function onDragStop (sprite, pointer) {
 	if(checkOverlap(truck, sprite)){
 		addCount(index);
 		checkOrderComplete();
-
-		sprite.alpha = 0;
 	}
 	else{
 
 	}
 	sprite.x = dragPositions[index].x;
 	sprite.y = dragPositions[index].y;
+
+	sprite.alpha = 0;
 }
 
 function checkOrderComplete(){
@@ -287,13 +344,17 @@ function checkOrderComplete(){
 		if(count[i] != orderNbr[i])
 			return;
 	}
-	orderWon()
+	orderWon();
 }
 
 function orderWon(){
-	addScore(dragNDropNbr*10 + orderTimer*10);
 	consecutiveWins++;
+	setTimeout(playMoney, Phaser.Timer.SECOND);
 	resetOrder();
+}
+function playMoney(){
+	money.play();
+	addScore(dragNDropNbr*10 + orderTimer*10);
 }
 
 function orderLost(){
@@ -305,12 +366,16 @@ function orderLost(){
 function addScore (newValue) {
 	score += newValue;
 	scoreText.text = "Score : " + score;
+	game.add.tween(scoreText.scale).to( { x: 1.2, y: 1.2 }, 200, Phaser.Easing.Cubic.Out, true, 0, true, true);
 }
 
 function resetOrder(){
-	eachSecond.stop(false);
+	eachSecondOrder.stop(false);
 	orderTimerSprite.animations.stop();
 	game.add.tween(truckSprites.position).to( { x: game.world.width }, Phaser.Timer.SECOND*2, Phaser.Easing.Linear.Out, true);
+
+	departure[getRandomInt(0,2)].play();
+
 	setTimeout(hideItems, Phaser.Timer.SECOND*2);
 	//setTimeout(startTruckLeaveAnim, Phaser.Timer.SECOND*2);
 }
@@ -327,11 +392,17 @@ function hideItems(){
 			itemsInTruck[i][j].visible = false;
 		}
 	}
-	if(consecutiveWins > 4 && currentDifficulty < 2){
+	if(consecutiveWins > 4 && currentDifficulty < 3){
 		currentDifficulty++;
 	}
 	orderTimerSprite.frame = 0;
-	createNewOrder();
+
+	for(var i=0; i<3; i++){
+		countTexts[i].scale.x = 1;
+		countTexts[i].scale.y = 1;
+	}
+
+	setTimeout(createNewOrder, Phaser.Timer.SECOND);
 }
 
 function checkOverlap(spriteA, spriteB) {
