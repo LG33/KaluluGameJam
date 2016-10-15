@@ -18,22 +18,23 @@ var game = new Phaser.Game(2424, 1536, Phaser.AUTO, '', { preload: preload, crea
 
 function preload() {
 
-    game.load.image('sky', 'assets/background.png');
-    game.load.image('ground', 'assets/platform.png');
-    game.load.image('button0', 'assets/poi.png');
+    game.load.image('background', 'assets/background.png');
+    //game.load.image('ground', 'assets/platform.png');
+    game.load.image('button2', 'assets/poi.png');
     game.load.image('button1', 'assets/cosse.png');
-    game.load.image('button2', 'assets/grappe.png');
+    game.load.image('button0', 'assets/grappe.png');
     game.load.image('truck', 'assets/truck.png');
-    game.load.spritesheet('itemDragged', 'assets/dude.png', 32, 48);
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+    /*game.load.spritesheet('itemDragged', 'assets/dude.png', 32, 48);
+    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);*/
 
 }
 
 var buttons;
 var itemDragged;
 
-var spriteButtons = new Array(3);
-var dragItems = new Array(3);
+var spriteButtons = new Array();
+var dragItems = new Array();
+var positions = [{x: 360, y: 1020}, {x: 700, y: 550}, {x: 250, y: 410}];
 
 var truck;
 
@@ -52,7 +53,7 @@ var itemDraggedIndex = -1;
 
 function create() {
     //  A simple background for our game
-    game.add.sprite(0, 0, 'sky');
+    game.add.sprite(0, 0, 'background');
 
 		order = game.add.group();
 
@@ -71,13 +72,15 @@ function create() {
 		itemsDragged = game.add.group();
 
 		for(var i=0; i<3; i++){
-			spriteButtons[i] = buttons.create(20, 100 + 50*i, 'button' + i);
-			dragItems[i] = itemsDragged.create(20, 100 + 50*i, 'button' + i);
-			dragItems[i].alpha = 0;
-			dragItems[i].inputEnabled = true;
-			dragItems[i].input.enableDrag();
-	    dragItems[i].events.onDragStart.add(onDragStart, this);
-	    dragItems[i].events.onDragStop.add(onDragStop, this);
+			var button = buttons.create(positions[i].x, positions[i].y, 'button' + i);
+			spriteButtons.push(button);
+			var dragItem = itemsDragged.create(positions[i].x, positions[i].y, 'button' + i);
+			dragItem.alpha = 0;
+			dragItem.inputEnabled = true;
+			dragItem.input.enableDrag();
+	    dragItem.events.onDragStart.add(onDragStart, this);
+	    dragItem.events.onDragStop.add(onDragStop, this);
+			dragItems.push(dragItem);
 		}
 
     //  The score
@@ -100,7 +103,7 @@ function createNewOrder(){
 	updateOrderNbr(getRandomInt(0, 2), getRandomInt(0, 7), getRandomInt(0, 7));
 	updateTimer(30);
 	eachSecond.start();
-	updateCount(0, 0, 0);
+	updateAllCount(0, 0, 0);
 }
 
 function update() {
@@ -124,7 +127,17 @@ function updateTimer(newValue){
 	timerText.text = timer + "s";
 }
 
-function updateCount(poi, cosse, grappe){
+function addCount(index){
+	if(count[index] < 9)
+		count[index]++;
+	else {
+		count[index] = 0;
+		if(index > 0)
+			count[index-1]++;
+	}
+	updateCountText();
+}
+function updateAllCount(poi, cosse, grappe){
 	count = [poi, cosse, grappe];
 	updateCountText();
 }
@@ -136,24 +149,15 @@ function onDragStart (sprite, pointer) {
 	sprite.alpha = 1;
 }
 function onDragStop (sprite, pointer) {
-	if(checkOverlap(truck, sprite)){
-		sprite.x = 20;
-		switch (sprite) {
-			case dragItems[0]:
-				count[2]++;
-				sprite.y = 100;
-				break;
-			case dragItems[1]:
-				count[1]++;
-				sprite.y = 150;
-				break;
-			case dragItems[2]:
-				count[0]++;
-				sprite.y = 200;
-				break;
-			default:
-				break;
+	var index = 0;
+	for(var i=0; i<3; i++){
+		if(sprite == dragItems[i]){
+			index = i;
 		}
+	}
+
+	if(checkOverlap(truck, sprite)){
+		addCount(index);
 		updateCountText();
 		sprite.alpha = 0;
 
@@ -162,30 +166,8 @@ function onDragStop (sprite, pointer) {
 	else{
 
 	}
-}
-
-function changeOrderCount (newValue) {
-	switch (newValue) {
-		case 1:
-			count[2]++;
-			break;
-		case 10:
-			count[1]++;
-			break;
-		case 100:
-			count[0]++;
-			break;
-		default:
-			break;
-	}
-
-	if(count == orderNbr){
-		checkOrderComplete();
-	}
-}
-function addScore (newValue) {
-	score += newValue;
-	scoreText.text = "Score : " + score;
+	sprite.x = positions[index].x;
+	sprite.y = positions[index].y;
 }
 
 function checkOrderComplete(){
@@ -195,6 +177,11 @@ function checkOrderComplete(){
 	}
 	addScore(10);
 	resetOrder();
+}
+
+function addScore (newValue) {
+	score += newValue;
+	scoreText.text = "Score : " + score;
 }
 
 function resetOrder(){
