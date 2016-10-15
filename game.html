@@ -24,8 +24,24 @@ function preload() {
     game.load.image('button1', 'assets/cosse.png');
     game.load.image('button0', 'assets/grappe.png');
     game.load.image('truck', 'assets/truck.png');
-    /*game.load.spritesheet('itemDragged', 'assets/dude.png', 32, 48);
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);*/
+
+		var folders = [100, 10, 1];
+		for(var i=0; i<3; i++){
+			for(var j=0; j<10; j++){
+	    	game.load.image( i + '_' + j, 'assets/remplissageTruck/' + folders[i] + '/' + j + '.png');
+			}
+		}
+    game.load.image('0_0', 'assets/remplissageTruck/grappes/grappe_01.png');
+    game.load.image('0_1', 'assets/remplissageTruck/grappes/grappe_02.png');
+    game.load.image('0_2', 'assets/remplissageTruck/grappes/grappe_03.png');
+    /*game.load.image('grappe_04', 'assets/remplissageTruck/grappe_04.png');
+    game.load.image('grappe_05', 'assets/remplissageTruck/grappe_05.png');
+    game.load.image('grappe_06', 'assets/remplissageTruck/grappe_06.png');
+    game.load.image('grappe_07', 'assets/remplissageTruck/grappe_07.png');
+    game.load.image('grappe_08', 'assets/remplissageTruck/grappe_08.png');
+    game.load.image('grappe_09', 'assets/remplissageTruck/grappe_09.png');
+    game.load.image('grappe_10', 'assets/remplissageTruck/grappe_10.png');*/
+    //game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
 
 }
 
@@ -37,6 +53,7 @@ var dragItems = new Array();
 var positions = [{x: 360, y: 1020}, {x: 700, y: 550}, {x: 250, y: 410}];
 
 var truck;
+var itemsInTruck = new Array();
 
 var order;
 var orderText, timerText, countText;
@@ -49,16 +66,24 @@ var orders;
 var score = 0;
 var scoreText;
 
-var itemDraggedIndex = -1;
-
 function create() {
     //  A simple background for our game
     game.add.sprite(0, 0, 'background');
 
-		order = game.add.group();
+		truckSprites = game.add.group();
 
 		//var orders = new array();
-		truck = game.add.sprite(580, 20, 'truck');
+		truck = truckSprites.create(580, 20, 'truck');
+
+		for(var i=0; i<1; i++){
+			var array = new Array();
+			for(var j=0; j<3; j++){
+				var grappe = truckSprites.create(0, 0, i + '_' + j);
+				grappe.visible = false;
+				array.push(grappe);
+			}
+			itemsInTruck.push(array);
+		}
 
     orderText = game.add.text(700, 30, '000', { fontSize: '20px', fill: '#000' });
 		timerText = game.add.text(700, 60, '30s', { fontSize: '20px', fill: '#000' });
@@ -128,10 +153,19 @@ function updateTimer(newValue){
 }
 
 function addCount(index){
-	if(count[index] < 9)
+	if(count[index] < 9){
+		itemsInTruck[index][count[index]].visible = true;
 		count[index]++;
+	}
 	else {
 		count[index] = 0;
+
+		for(var i=0; i<1; i++){
+			for(var j=0; j<3; j++){
+				itemsInTruck[i][j].visible = false;
+			}
+		}
+
 		if(index > 0)
 			count[index-1]++;
 	}
