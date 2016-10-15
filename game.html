@@ -20,9 +20,9 @@ function preload() {
 
     game.load.image('sky', 'assets/sky.png');
     game.load.image('ground', 'assets/platform.png');
-    game.load.image('poi', 'assets/poi.png');
-    game.load.image('cosse', 'assets/cosse.png');
-    game.load.image('grappe', 'assets/grappe.png');
+    game.load.image('button0', 'assets/poi.png');
+    game.load.image('button1', 'assets/cosse.png');
+    game.load.image('button2', 'assets/grappe.png');
     game.load.image('truck', 'assets/truck.png');
     game.load.spritesheet('itemDragged', 'assets/dude.png', 32, 48);
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
@@ -30,17 +30,21 @@ function preload() {
 }
 
 var buttons;
-var poiButton, cosseButton, grapButton;
-var poiDrag, cosseDrag, grapDrag;
 var itemDragged;
+
+var spriteButtons = new Array(3);
+var dragItems = new Array(3);
 
 var truck;
 
 var order;
-var orderText, timer, countText;
-var orderNbr = 213, timer = 30, count = 0;
+var orderText, timerText, countText;
+var orderNbr = [2, 1, 3], count = [0, 0, 0];
+var eachSecond;
+var timer = 30;
 
-var stars;
+var orders;
+
 var score = 0;
 var scoreText;
 
@@ -53,39 +57,28 @@ function create() {
 		order = game.add.group();
 
 		//var orders = new array();
-		truck = game.add.sprite(580, 200, 'truck');
+		truck = game.add.sprite(580, 20, 'truck');
 
-    orderText = game.add.text(700, 30, orderNbr.toString(), { fontSize: '20px', fill: '#000' });
-    timer = game.add.text(700, 60, '30s', { fontSize: '20px', fill: '#000' });
+    orderText = game.add.text(700, 30, '000', { fontSize: '20px', fill: '#000' });
+		timerText = game.add.text(700, 60, '30s', { fontSize: '20px', fill: '#000' });
+		eachSecond = game.time.create(false);
+		eachSecond.loop(1000, decreaseTimer, this);
     countText = game.add.text(700, 90, '000', { fontSize: '20px', fill: '#000' });
+
+		createNewOrder();
 
     buttons = game.add.group();
 		itemsDragged = game.add.group();
-		itemsDragged.inputEnableChildren = true;
 
-		poiButton = buttons.create(20, 100, 'poi');
-		poiDrag = itemsDragged.create(20, 100, 'poi');
-		poiDrag.alpha = 0;
-		poiDrag.inputEnabled = true;
-		poiDrag.input.enableDrag();
-    poiDrag.events.onDragStart.add(onDragStart, this);
-    poiDrag.events.onDragStop.add(onDragStop, this);
-
-		cosseButton = buttons.create(20, 150, 'cosse');
-		cosseDrag = itemsDragged.create(20, 150, 'cosse');
-		cosseDrag.alpha = 0;
-		cosseDrag.inputEnabled = true;
-		cosseDrag.input.enableDrag();
-    cosseDrag.events.onDragStart.add(onDragStart, this);
-    cosseDrag.events.onDragStop.add(onDragStop, this);
-
-		grapButton = buttons.create(20, 200, 'grappe');
-		grapDrag = itemsDragged.create(20, 200, 'grappe');
-		grapDrag.alpha = 0;
-		grapDrag.inputEnabled = true;
-		grapDrag.input.enableDrag();
-    grapDrag.events.onDragStart.add(onDragStart, this);
-    grapDrag.events.onDragStop.add(onDragStop, this);
+		for(var i=0; i<3; i++){
+			spriteButtons[i] = buttons.create(20, 100 + 50*i, 'button' + i);
+			dragItems[i] = itemsDragged.create(20, 100 + 50*i, 'button' + i);
+			dragItems[i].alpha = 0;
+			dragItems[i].inputEnabled = true;
+			dragItems[i].input.enableDrag();
+	    dragItems[i].events.onDragStart.add(onDragStart, this);
+	    dragItems[i].events.onDragStop.add(onDragStop, this);
+		}
 
     //  The score
     scoreText = game.add.text(16, 16, 'Score : 0', { fontSize: '32px', fill: '#000' });
@@ -94,8 +87,49 @@ function create() {
     mouse = game.input.keyboard.createCursorKeys();
 }
 
+function createNewOrder(){
+	/*var newOrder = {
+		orderNbr: [2, 1, 1],
+		orderText: game.add.text(700, 30, orderNbr[0] + "" + orderNbr[1] + "" + orderNbr[2], { fontSize: '20px', fill: '#000' }),
+		time: 30,
+		timerText: game.add.text(700, 60, time + "s", { fontSize: '20px', fill: '#000' }),
+		count: [0, 0, 0],
+		countText: game.add.text(700, 90, count[0] + "" + count[1] + "" + count[2], { fontSize: '20px', fill: '#000' }),
+	}
+	orders.push(newOrder);*/
+	updateOrderNbr(getRandomInt(0, 2), getRandomInt(0, 7), getRandomInt(0, 7));
+	updateTimer(30);
+	eachSecond.start();
+	updateCount(0, 0, 0);
+}
+
 function update() {
 
+}
+
+function updateOrderNbr(poi, cosse, grappe){
+	orderNbr = [poi, cosse, grappe];
+	orderText.text = orderNbr[0] + "" + orderNbr[1] + "" + orderNbr[2];
+}
+
+function decreaseTimer() {
+	updateTimer(timer-1);
+	if(timer == 0){
+		resetOrder();
+		addScore(-10);
+	}
+}
+function updateTimer(newValue){
+	timer = newValue;
+	timerText.text = timer + "s";
+}
+
+function updateCount(poi, cosse, grappe){
+	count = [poi, cosse, grappe];
+	updateCountText();
+}
+function updateCountText(){
+	countText.text = count[0] + "" + count[1] + "" + count[2];
 }
 
 function onDragStart (sprite, pointer) {
@@ -105,22 +139,25 @@ function onDragStop (sprite, pointer) {
 	if(checkOverlap(truck, sprite)){
 		sprite.x = 20;
 		switch (sprite) {
-			case poiDrag:
-				changeOrderCount(1);
+			case dragItems[0]:
+				count[2]++;
 				sprite.y = 100;
 				break;
-			case cosseDrag:
-				changeOrderCount(10);
+			case dragItems[1]:
+				count[1]++;
 				sprite.y = 150;
 				break;
-			case grapDrag:
-				changeOrderCount(100);
+			case dragItems[2]:
+				count[0]++;
 				sprite.y = 200;
 				break;
 			default:
 				break;
 		}
+		updateCountText();
 		sprite.alpha = 0;
+
+		checkOrderComplete();
 	}
 	else{
 
@@ -128,11 +165,22 @@ function onDragStop (sprite, pointer) {
 }
 
 function changeOrderCount (newValue) {
-	count += newValue;
-	countText.text = count.toString();
+	switch (newValue) {
+		case 1:
+			count[2]++;
+			break;
+		case 10:
+			count[1]++;
+			break;
+		case 100:
+			count[0]++;
+			break;
+		default:
+			break;
+	}
 
 	if(count == orderNbr){
-		addScore(10);
+		checkOrderComplete();
 	}
 }
 function addScore (newValue) {
@@ -140,11 +188,31 @@ function addScore (newValue) {
 	scoreText.text = "Score : " + score;
 }
 
+function checkOrderComplete(){
+	for(var i=0; i<3; i++){
+		if(count[i] != orderNbr[i])
+			return;
+	}
+	addScore(10);
+	resetOrder();
+}
+
+function resetOrder(){
+	eachSecond.stop();
+	createNewOrder();
+}
+
 function checkOverlap(spriteA, spriteB) {
     var boundsA = spriteA.getBounds();
     var boundsB = spriteB.getBounds();
 
     return Phaser.Rectangle.intersects(boundsA, boundsB);
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 </script>
