@@ -34,12 +34,18 @@
 				}
     </style>
 
-		<!--script>
-		(function() {
+		<script>
+		myAudio = new Audio('assets/Audio/Musique.ogg');
+		myAudio.addEventListener('ended', function() {
+		    this.currentTime = 0;
+		    this.play();
+		}, false);
+		myAudio.play();
+		/*(function() {
 			console.log("haha" + localStorage.getItem('score'));
 			document.getElementsByTagName("a").innerHTML = "Score : " + localStorage.getItem('score');
-})();
-		</script-->
+})();*/
+		</script>
 </head>
 <body>
 	<div id="content">
