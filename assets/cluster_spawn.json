@@ -245,7 +245,7 @@
 	"version": "15.0.0.173",
 	"image": "Cluster_spawn.png",
 	"format": "RGBA8888",
-	"size": {"w":4096,"h":7600},
+	"size": {"w":4096,"h":740},
 	"scale": "1"
 }
 }
