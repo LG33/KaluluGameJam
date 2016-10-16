@@ -2,250 +2,250 @@
 
 "Occurrence Pod_combine 10000":
 {
-	"frame": {"x":1,"y":1,"w":441,"h":408},
+	"frame": {"x":1,"y":1,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10001":
 {
-	"frame": {"x":443,"y":1,"w":441,"h":408},
+	"frame": {"x":353,"y":1,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10002":
 {
-	"frame": {"x":885,"y":1,"w":441,"h":408},
+	"frame": {"x":705,"y":1,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10003":
 {
-	"frame": {"x":1327,"y":1,"w":441,"h":408},
+	"frame": {"x":1057,"y":1,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10004":
 {
-	"frame": {"x":1,"y":410,"w":441,"h":408},
+	"frame": {"x":1409,"y":1,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10005":
 {
-	"frame": {"x":443,"y":410,"w":441,"h":408},
+	"frame": {"x":1,"y":326,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10006":
 {
-	"frame": {"x":885,"y":410,"w":441,"h":408},
+	"frame": {"x":353,"y":326,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10007":
 {
-	"frame": {"x":1327,"y":410,"w":441,"h":408},
+	"frame": {"x":705,"y":326,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10008":
 {
-	"frame": {"x":1,"y":819,"w":441,"h":408},
+	"frame": {"x":1057,"y":326,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10009":
 {
-	"frame": {"x":443,"y":819,"w":441,"h":408},
+	"frame": {"x":1409,"y":326,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10010":
 {
-	"frame": {"x":885,"y":819,"w":441,"h":408},
+	"frame": {"x":1,"y":651,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10011":
 {
-	"frame": {"x":1327,"y":819,"w":441,"h":408},
+	"frame": {"x":353,"y":651,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10012":
 {
-	"frame": {"x":1,"y":1228,"w":441,"h":408},
+	"frame": {"x":705,"y":651,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10013":
 {
-	"frame": {"x":443,"y":1228,"w":441,"h":408},
+	"frame": {"x":1057,"y":651,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10014":
 {
-	"frame": {"x":885,"y":1228,"w":441,"h":408},
+	"frame": {"x":1409,"y":651,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10015":
 {
-	"frame": {"x":1327,"y":1228,"w":441,"h":408},
+	"frame": {"x":1,"y":976,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10016":
 {
-	"frame": {"x":1,"y":1637,"w":441,"h":408},
+	"frame": {"x":353,"y":976,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10017":
 {
-	"frame": {"x":443,"y":1637,"w":441,"h":408},
+	"frame": {"x":705,"y":976,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10018":
 {
-	"frame": {"x":885,"y":1637,"w":441,"h":408},
+	"frame": {"x":1057,"y":976,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10019":
 {
-	"frame": {"x":1327,"y":1637,"w":441,"h":408},
+	"frame": {"x":1409,"y":976,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10020":
 {
-	"frame": {"x":1,"y":2046,"w":441,"h":408},
+	"frame": {"x":1,"y":1301,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10021":
 {
-	"frame": {"x":443,"y":2046,"w":441,"h":408},
+	"frame": {"x":353,"y":1301,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10022":
 {
-	"frame": {"x":885,"y":2046,"w":441,"h":408},
+	"frame": {"x":705,"y":1301,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10023":
 {
-	"frame": {"x":1327,"y":2046,"w":441,"h":408},
+	"frame": {"x":1057,"y":1301,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10024":
 {
-	"frame": {"x":1,"y":2455,"w":441,"h":408},
+	"frame": {"x":1409,"y":1301,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10025":
 {
-	"frame": {"x":443,"y":2455,"w":441,"h":408},
+	"frame": {"x":1,"y":1626,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10026":
 {
-	"frame": {"x":885,"y":2455,"w":441,"h":408},
+	"frame": {"x":353,"y":1626,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10027":
 {
-	"frame": {"x":1327,"y":2455,"w":441,"h":408},
+	"frame": {"x":705,"y":1626,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10028":
 {
-	"frame": {"x":1,"y":2864,"w":441,"h":408},
+	"frame": {"x":1057,"y":1626,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 },
 "Occurrence Pod_combine 10029":
 {
-	"frame": {"x":443,"y":2864,"w":441,"h":408},
+	"frame": {"x":1409,"y":1626,"w":351,"h":324},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":441,"h":408},
-	"sourceSize": {"w":441,"h":408}
+	"spriteSourceSize": {"x":0,"y":0,"w":351,"h":324},
+	"sourceSize": {"w":351,"h":324}
 }},
 "meta": {
 	"app": "Adobe Flash Professional",
 	"version": "15.0.0.173",
 	"image": "pod_spawn.png",
 	"format": "RGBA8888",
-	"size": {"w":2048,"h":4096},
+	"size": {"w":2048,"h":2048},
 	"scale": "1"
 }
 }
